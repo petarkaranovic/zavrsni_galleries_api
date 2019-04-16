@@ -11,20 +11,24 @@ Use App\User;
 class AuthController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
+    public function login(Request $request){
+        $credentials=$request->only(['email','password']);
+        $token=auth()->attempt($credentials);
 
-
-    public function login()
-    {
-        $credentials = request(['email', 'password']);
-
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if(!$token){
+            return response()->json([
+                'message'=>'Please check credentials and try again.'
+            ],401);
         }
-
-        return $this->respondWithToken($token);
+        return response()->json([
+            'token'=>$token,
+            'type'=>'Bearer',
+            'expires_in'=>auth()->factory()->getTTL()*60,
+            'user'=>auth()->user()
+        ]);
     }
 
 
@@ -53,7 +57,7 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }
-    public function Register(RegisterRequest $request){
+    public function register(RegisterRequest $request){
         $user=new User();
         $user->first_name=$request->input('first_name');
         $user->last_name=$request->input('last_name');
