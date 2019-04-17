@@ -1,9 +1,15 @@
 <?php
-
 use Faker\Generator as Faker;
+use App\Comment;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(Comment::class, function (Faker $faker) {
     return [
-        //
+        'content'=>$faker->sentence(),
+        'user_id'=>function(){
+            return App\User::all()->random()->id;
+        },
+        'gallery_id'=>function(){
+            return App\Gallery::all()->random()->id;
+        }
     ];
 });

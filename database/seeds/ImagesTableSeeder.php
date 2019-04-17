@@ -1,8 +1,8 @@
 <?php
 use Illuminate\Database\Seeder;
-use App\User;
+use App\Image;
 
-class UsersTableSeeder extends Seeder
+class ImagesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class,20)->create();
+        factory(Image::class,100)->create();
     }
 }
