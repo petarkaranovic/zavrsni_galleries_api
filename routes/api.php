@@ -23,3 +23,13 @@ Route::group([
     Route::post('me', 'AuthController@me');
     Route::post('register','AuthController@register');
 });
+
+Route::resource('galleries','GalleriesController')->except([
+    'create','edit'
+]);   
+
+Route::group([
+    'prefix'=>'all-galleries'
+], function(){
+    Route::resource('galleries','GalleriesController');
+});
