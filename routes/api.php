@@ -33,6 +33,7 @@ Route::get('/authors-galleries/{id}','AuthorGalleriesController@index');
 Route::get('my-galleries','MyGalleriesController@show');
 Route::post('my-galleries/{id}','CommentsController@store');
 Route::delete('/comment/{id}','CommentsController@destroy');
+Route::delete('/gallery/{id}','GalleriesController@destroy');
 
 
 
