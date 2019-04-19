@@ -28,8 +28,11 @@ Route::resource('galleries','GalleriesController')->except([
     'create','edit'
 ]);   
 
-Route::group([
-    'prefix'=>'all-galleries'
-], function(){
-    Route::resource('galleries','GalleriesController');
-});
+Route::get('galleries/page','GalleriesController@index');
+Route::get('/authors-galleries/{id}','AuthorGalleriesController@index');
+Route::get('my-galleries','MyGalleriesController@show');
+Route::post('my-galleries/{id}','CommentsController@store');
+Route::delete('/comment/{id}','CommentsController@destroy');
+
+
+
