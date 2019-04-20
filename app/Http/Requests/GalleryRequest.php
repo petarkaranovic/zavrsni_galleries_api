@@ -23,7 +23,9 @@ class GalleryRequest extends FormRequest
      */
     public function rules()
     {
-        $galleryId=$this->method()=='PUT' ? $this->route()->parameters['gallery']->id : null;
+        $galleryId =  $this->method() == 'PUT'
+        ? $this->route()->parameters['gallery']->id
+        : null;
         return [
             'title'=>'required|min:2|max:255',
             'description'=>'max:1000',

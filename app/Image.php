@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     protected $fillable=[
-        'url','gallery_id'
+        'url'
     ];
-
     public function gallery(){
         return $this->belongsTo(Gallery::class);
     }

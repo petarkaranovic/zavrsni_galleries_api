@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Gallery;
 use App\Image;
 use App\Comment;
-
-
 class GalleriesController extends Controller
 {
     public function __construct(){
@@ -38,7 +36,6 @@ class GalleriesController extends Controller
             },
             'user'
         ])->latest()->paginate(10);
-        
     }
 
     /**
@@ -98,7 +95,6 @@ class GalleriesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
     /**
      * Update the specified resource in storage.
      *
@@ -110,20 +106,18 @@ class GalleriesController extends Controller
     {
         $gallery->update($request->only([
             'title',
-            'description'
-        ]));
-        $gallery-images()->delete();
-        $imagesReq = $request->input('images');
-        $images=[];
-
-        foreach($imagesReq as $singleImage){
+            'description',
+          ]));
+          $gallery->images()->delete();
+          $imagesRequest = $request->input('images');
+          $images = [];
+          foreach($imagesRequest as $image){
             $newImage = new Image($image);
-            $images[]=$newImage;
-        }
-        $gallery->images()->saveMany($images);
-        return $this->show($gallery->id);
+            $images[] = $newImage;
+          }
+          $gallery->images()->saveMany($images);
+          return $this->show($gallery->id);
     }
-
     /**
      * Remove the specified resource from storage.
      *
